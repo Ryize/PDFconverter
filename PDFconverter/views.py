@@ -18,9 +18,9 @@ def index_page(request):
         file = File.objects.create(file=files)
         file.save()
 
-        if file.get_file_size() > 13107200:
+        if file.get_file_size() > 13107200: #Checking for the maximum file weight
             messages.error(request, 'Размер файла слишком большой, максимум 12.5МБ!')
-            os.remove(file.file.path)
+            os.remove(file.file.path)  #Deleting an unused file
             return render(request, 'PDFconverter/index_page.html')
 
         filename, file_extension = file.get_file_path_extension()
@@ -29,13 +29,13 @@ def index_page(request):
 
         if file_extension != '.docx':
             messages.error(request, 'Документ должен быть в формате .docx!')
-            os.remove(filename + file_extension)
+            os.remove(filename + file_extension) #Deleting an unused file
             file.delete()
             return render(request, 'PDFconverter/index_page.html')
 
         if bool(re.match(pat, str(files))):
             convert(file.file.path)
-            os.remove(file.file.path)
+            os.remove(file.file.path) #Deleting an unused file
         else:
             symbol_list = '\ '
             symbol_list = symbol_list.replace(' ', '')
@@ -45,8 +45,8 @@ def index_page(request):
             for i in file_path_list:
                 filename_new += i + '\ '
             filename_new = filename_new.replace(' ', '')
-            filename_new += ''.join(random.choice(string.ascii_letters) for _ in range(16))
-            os.rename(filename + file_extension, filename_new + file_extension)
+            filename_new += ''.join(random.choice(string.ascii_letters) for _ in range(16)) #Generating a new file name
+            os.rename(filename + file_extension, filename_new + file_extension) #Change file name from old to new
 
             filename = filename_new
 
