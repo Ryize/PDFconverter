@@ -1,24 +1,28 @@
 # PDFconverter
-A website for converting files .docx to. pdf
+Веб-сайт для преобразования файлов .docx в. pdf
 
-## Deploy locally:
+## Прежде всего:
 
-Clone the repository and go to installed folder:
+Клонируйте репозиторий и перейдите в установленную папку:
 ```
 git clone https://github.com/Ryize/PDFconverter.git
 cd PDFconverter
 ```
 
-Install requirements:
+Установите requirements:
 ```
 pip3 install -r requirements.txt
 ```
 
-Run the bot:
+Соберите statics и выполните migrations:
 ```
 python3 manage.py collectstatic
 python3 manage.py migrate
+```
+
+Запустите проект:
+```
 python3 manage.py runserver
 ```
 
-> Technologies used in the project: Python3, Django, docx2pdf, os, random, re, string.
+> Технологии, использованные в проекте: Python3, Django, docx2pdf, os, random, re, string.
